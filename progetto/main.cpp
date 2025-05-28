@@ -18,7 +18,7 @@ void stampamenu(){
     cout << "* 7 - cerca materie per descrizione             *\n";
     cout << "* 8 - inserisci nuovo studente                  *\n";
     cout << "* 9 - salva dati su file                        *\n";
-    cout << "* 10 - esci                                      *\n";
+    cout << "* 10 - esci                                     *\n";
     cout << "*************************************************\n";
 
 }
@@ -114,6 +114,7 @@ string cercaPerMatricola(map<string,  vector<studente> > &studentev,string matri
             }
         }
     }
+    return "matricola non trovato";
 }
 string cercaPerCognome(map<string,  vector<studente> > studentev,string cognome,map<string,  vector<corso> > corsov){
     string cerca_cognome;
@@ -133,6 +134,7 @@ string cercaPerCognome(map<string,  vector<studente> > studentev,string cognome,
             }
         }
     }
+    return "cognome non trovato";
 
 }
 void caricaento_MAPMAP_STUDENTE ( map<string,  map<string,studente> > &MAPMAP_studente ){
@@ -275,27 +277,32 @@ int main(){
 
             break;
 
-        case 3:
-
-            cout<<"dimmi il codice corso di cui vuoi sapere gli studenti : ";
-            cin>>n_studente_corso;
-
-
-//METTERELO SOTTOFORMA DI PROCEDURA
-            MAPMAP_studente.clear();
-            caricaento_MAPMAP_STUDENTE ( MAPMAP_studente );
+        case 3:{
+                bool trovato = false;
+                cout<<"dimmi il codice corso di cui vuoi sapere gli studenti : ";
+                cin>>n_studente_corso;
 
 
-            for(auto corso:MAPMAP_studente){
-                if(corso.first==n_studente_corso){
-                    for(auto mat:corso.second ){
+    //METTERELO SOTTOFORMA DI PROCEDURA
+                MAPMAP_studente.clear();
+                caricaento_MAPMAP_STUDENTE ( MAPMAP_studente );
 
-                        cout<<mat.second.cognome_studente<<"  "<<mat.second.nome_studente<<"  "<<mat.second.matricola_studente<<endl;
 
+
+                for(auto corso:MAPMAP_studente){
+                    if(corso.first==n_studente_corso){
+                                    trovato = true;
+                        for(auto mat:corso.second ){
+
+                            cout<<mat.second.cognome_studente<<"  "<<mat.second.nome_studente<<"  "<<mat.second.matricola_studente<<endl;
+
+                        }
                     }
                 }
+            if (!trovato){
+                cout << " Errore: codice corso non trovato." << endl;
             }
-
+        }
 
 
 
@@ -303,7 +310,8 @@ int main(){
 
             break;
 
-        case 4:
+        case 4:{
+                 bool trovato1 = false;
             cout<<"inserisci codice corso per sapere gli esami : " ;
             cin>>codice_esame;
 
@@ -312,12 +320,17 @@ int main(){
 
                 for(auto desc:corso.second ){
                     if(codice_esame==corso.first){
+                                trovato1 = true;
                         cout<<corso.first<<"  "<<desc.second.descrizione_materia<<"  "<<desc.second.codice_materia<<endl;
                     }
 
                 }
 
             }
+               if (!trovato1){
+                cout << " Errore: codice corso non trovato." << endl;
+            }
+        }
 
 
             break;
@@ -337,7 +350,7 @@ int main(){
             cout<<"inserisdci il corso di cui vuoi vedere il numero di meterie : ";
             cin>>numero_materie_corsi;
 
-            cout<<numero_materie_corsi<<" : "<<materie_per_corsi_funzione (MAPMAP_materia,   materie_per_corsi, numero_materie_corsi);
+            cout<<numero_materie_corsi<<" : "<<materie_per_corsi_funzione (MAPMAP_materia,   materie_per_corsi, numero_materie_corsi)<<endl;
             break;
 
         case 7:
