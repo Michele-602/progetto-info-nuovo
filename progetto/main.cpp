@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <map>
@@ -354,8 +353,10 @@ int main(){
             break;
 
         case 7:
-            cout<<"inserisci descrizion di cui vuoi sqapere le materia : " ;
-            cin>>CERCA_DESCR;
+            cout<<"inserisci descrizione di cui vuoi sapere le materie : " ;
+           cin.ignore();
+           getline(cin,CERCA_DESCR);
+
 
             materie_per_descrizoine ( CERCA_DESCR );
 
